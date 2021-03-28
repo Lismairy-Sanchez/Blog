@@ -34,3 +34,7 @@ body {
 .red {
   color: red;
 }
+
+.put_title {
+  border-top: 1px solid black;
+}

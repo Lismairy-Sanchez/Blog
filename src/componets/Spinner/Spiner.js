@@ -3,7 +3,7 @@ import './spinner.css';
 const Spinner=(props)=>{
     return(
         <div className='center'>
-            <div class="lds-spinner">
+            <div className="lds-spinner">
                 <div></div>
                 <div></div>
                 <div></div>

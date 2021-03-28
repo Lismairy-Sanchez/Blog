@@ -12,8 +12,9 @@ class Users extends Component{
  
 //Funcion de montado
 componentDidMount(){
-this.props.getAll();
-console.log(this.props)
+  if(!this.props.users.length){
+    this.props.getAll();
+  }
 }
 
 
@@ -28,6 +29,7 @@ putContent=()=>{
   return <Table/>
 }
   render (){
+console.log(this.props)
     return(
     <div >
       <h1>
