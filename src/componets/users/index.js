@@ -13,7 +13,9 @@ class Users extends Component{
 //Funcion de montado
 componentDidMount(){
 this.props.getAll();
+console.log(this.props)
 }
+
 
 putContent=()=>{
   if(this.props.loading){

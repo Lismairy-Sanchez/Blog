@@ -1,32 +1,20 @@
 import axios from 'axios';
-import {GET_ALL_PUBLICATIONS, LOADING_PUBLICATIONS, ERROR_PUBLICATIONS} from '../types/publicationsTypes'
-
-export const getAll =()=>async (dispatch)=>{
-const response= await axios.get('https://jsonplaceholder.typicode.com/posts');
-dispatch({
-    type:LOADING_PUBLICATIONS
-})
-    try {
-        dispatch({
-            type: GET_ALL_PUBLICATIONS, //Tipo 
-            payload:response.data 
-        })
-    } catch (error) {
-        console.log('Error'+ error.message)
-        dispatch({
-            type:ERROR_PUBLICATIONS,
-            payload:'Algo salió mal, intente más tarde.'
-        })
-    }
-}
+import {GET_BY_USER, LOADING, ERROR} from '../types/publicationsTypes'
 
 export const getByUser =(key)=>async(dispatch,getState)=>{
     const {users}=getState().usersReducers;
+    const {publications}=getState().publicationsReducers;
+    //User_Id es igual a users que recibo como parametro
     const user_id=users[key].id;
     const response= await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
 
+    const update_publications =[
+        ...publications,
+        response.data
+    ];
     dispatch({
-        type: GET_ALL_PUBLICATIONS, //Tipo 
-        payload:response.data
+        type: GET_BY_USER, //Tipo 
+        payload:update_publications
     })
 }
+
