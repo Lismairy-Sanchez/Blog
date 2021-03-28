@@ -1,4 +1,4 @@
-import {GET_BY_USER, LOADING, ERROR} from '../types/publicationsTypes'
+import {UPDATE, LOADING, ERROR} from '../types/publicationsTypes'
 //Creo un estado inicial
 const initialState ={
     publications:[],
@@ -9,7 +9,7 @@ const initialState ={
 //Indico que por defecto el estado sea el estado inicial y la accion
 export default function publicationsReducers(state = initialState, action) {
     switch (action.type){
-        case GET_BY_USER:
+        case UPDATE:
             //Hago una copia del estado
             return {
                 ...state, 

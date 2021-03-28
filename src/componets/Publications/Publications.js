@@ -7,7 +7,7 @@ import * as userActions from '../../redux/actions/userActions'
 import * as publicationsActions from '../../redux/actions/publicationsActions'
 
 const {getAll:getAll_Users}=userActions;
-const {getByUser:getUser_Publications}=publicationsActions;
+const {getByUser:getUser_Publications, openClose}=publicationsActions;
 
 class Publications extends Component{
 
@@ -73,21 +73,29 @@ class Publications extends Component{
         if(!('publications_key' in users[key]))return;
         
         const {publications_key}=users[key]
-        return publications[publications_key].map((publications)=>(
+        return this.show_info(
+            publications[publications_key], publications_key
+        );
+    };
+
+    show_info=( publications, pub_key)=>(
+        //Primer parametro es el elemento y el segundo es la llave
+        publications.map((publication,com_key)=>(
             <div 
             className="put_title"
-            key={publications.id}
-            onClick={()=>alert(publications.id)}
+            key={publication.id}
+            onClick={()=>this.props.openClose(pub_key,com_key)}
             >
                 <h2>
-                    {publications.title}
+                {publication.title}
                 </h2>
                 <h3>
-                    {publications.body}
+                {publication.body}
                 </h3>
+                {(publication.open)? 'open': 'close'}
             </div>
-        ));
-    };
+        ))
+    );
 
     render(){
         console.log(this.props)
@@ -108,6 +116,8 @@ const mapStateToProps= ({usersReducers, publicationsReducers}) => {
 
 const mapDispatchToProps=({
     getAll_Users,
-    getUser_Publications
+    getUser_Publications,
+    openClose
+
 })
 export default connect(mapStateToProps,mapDispatchToProps)(Publications);

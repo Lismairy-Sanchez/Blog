@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_BY_USER, LOADING, ERROR} from '../types/publicationsTypes';
+import {UPDATE, LOADING, ERROR} from '../types/publicationsTypes';
 import * as usersTypes from '../types/usersTypes';
 
 const {GET_ALL: GET_ALL_USERS}=usersTypes;
@@ -17,8 +17,8 @@ export const getByUser =(key)=>async(dispatch,getState)=>{
     try {
         const response= await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${user_id}`);
 
-        const news=response.data.map((publications)=>(
-           { ...publications,
+        const news=response.data.map((publication)=>(
+           { ...publication,
             comments:[],
             open:false
             }
@@ -29,7 +29,7 @@ export const getByUser =(key)=>async(dispatch,getState)=>{
             news
         ];
         dispatch({
-            type: GET_BY_USER, //Tipo 
+            type: UPDATE, //Tipo 
             payload:update_publications
         });
 
@@ -55,6 +55,22 @@ export const getByUser =(key)=>async(dispatch,getState)=>{
     }
 }
 
-export const openClose=()=>{
-    
+export const openClose=(pub_key,com_key)=>(dispatch,getState)=>{
+    const {publications}=getState().publicationsReducers;
+    const select = publications[pub_key][com_key]
+
+    const update={
+        ...select,
+        //abierto es distinto de lo que la seleccion abierto tiene
+        open:!select.open
+    }
+    //inmutabilidad
+    const update_publications=[...publications];
+    update_publications[pub_key]=[...publications[pub_key]];
+
+    update_publications[pub_key][com_key]=update
+    dispatch({
+        type: UPDATE, //Tipo 
+        payload:update_publications
+    });
 }
