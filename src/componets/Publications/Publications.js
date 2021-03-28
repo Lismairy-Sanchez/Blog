@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as userActions from '../../redux/actions/userActions'
-import * as publicationsActions from '../../redux/actions/userActions'
+import * as publicationsActions from '../../redux/actions/publicationsActions'
 
 const {getAll:getAll_Users}=userActions;
-const {getByUser:getAll_Publications}=publicationsActions;
+const {getByUser:getUser_Publications}=publicationsActions;
 
 class Publications extends Component{
 
@@ -12,10 +12,12 @@ class Publications extends Component{
         //sino existen los usuarios traerlos
         if(!this.props.usersReducers.users.length){
             await this.props.getAll_Users();
+            //console.log(this.props.publicationsReducers)
         }
-       this.props.getAll_Publications();
+       this.props.getUser_Publications(this.props.match.params.key);
     }
     render(){
+        console.log(this.props)
         return(
             <div>
                 <h1>
@@ -35,6 +37,6 @@ const mapStateToProps= ({usersReducers, publicationsReducers}) => {
 
 const mapDispatchToProps=({
     getAll_Users,
-    getAll_Publications
+    getUser_Publications
 })
 export default connect(mapStateToProps,mapDispatchToProps)(Publications);

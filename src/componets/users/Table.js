@@ -6,7 +6,7 @@ const Table = (props) => {
     //Agregar 
     const bring_Users =() => (      
         //Map itera por la cantidad de elementos que tenga en el arreglo
-        props.user.map((user,key)=>(
+        props.users.map((user,key)=>(
             //Se define la key
             <tr key={user.id}>
                 <td>
@@ -28,25 +28,24 @@ const Table = (props) => {
             </tr>
         )) 
     );
-
     return(
         <div>
             <table className="table">
                 <thead>
-                <tr>
-                    <th>
-                    Nombre
-                    </th>
-                    <th>
-                    Email
-                    </th>
-                    <th>
-                    Link
-                    </th>
-                    <th>
-                    Id
-                    </th>
-                </tr>
+                    <tr>
+                        <th>
+                        Nombre
+                        </th>
+                        <th>
+                        Email
+                        </th>
+                        <th>
+                        Link
+                        </th>
+                        <th>
+                        Id
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
                 {/* this se usa para hacer referencia a una funcion */}
@@ -59,7 +58,7 @@ const Table = (props) => {
 
 //Paso info conectando con state de redux
 const mapStateToProps=(reducers)=>{
-    return reducers.usersReduces;
+    return reducers.usersReducers;
 }
 
 export default connect(mapStateToProps)(Table);

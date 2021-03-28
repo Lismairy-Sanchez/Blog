@@ -1,4 +1,4 @@
-import {GET_ALL_USERS, LOADING_USERS, ERROR_USERS} from '../types/usersTypes'
+import {GET_ALL, LOADING, ERROR} from '../types/usersTypes'
 //Creo un estado inicial
 const initialState ={
     users:[],
@@ -10,7 +10,7 @@ const initialState ={
 export default function usersReducers(state = initialState, action) {
        switch (action.type){
         //Traer usuarios
-        case GET_ALL_USERS:
+        case GET_ALL:
             //Hago una copia del estado
             return {
                 ...state, 
@@ -18,10 +18,10 @@ export default function usersReducers(state = initialState, action) {
                 loading: false,
                 error:''
             }
-        case LOADING_USERS:
+        case LOADING:
             return{...state, loading:true}
             
-        case ERROR_USERS:
+        case ERROR:
             return{
                 ...state,
                 error:action.payload,
